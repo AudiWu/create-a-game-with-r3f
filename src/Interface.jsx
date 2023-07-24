@@ -13,6 +13,7 @@ export default function Interface() {
   const backward = useKeyboardControls((state) => state.backward);
   const leftward = useKeyboardControls((state) => state.leftward);
   const rightward = useKeyboardControls((state) => state.rightward);
+  const restartKey = useKeyboardControls((state) => state.restartKey);
   const jump = useKeyboardControls((state) => state.jump);
 
   useEffect(() => {
@@ -21,9 +22,11 @@ export default function Interface() {
 
       let elapsedTime = 0;
 
-      if (state.phase === "playing") elapsedTime = Date.now() - state.startTime;
-      else if (state.phase === "ended")
+      if (state.phase === "playing") {
+        elapsedTime = Date.now() - state.startTime;
+      } else if (state.phase === "ended") {
         elapsedTime = state.endTime - state.startTime;
+      }
 
       elapsedTime /= 1000;
       elapsedTime = elapsedTime.toFixed(2);
@@ -62,6 +65,9 @@ export default function Interface() {
         </div>
         <div className="raw">
           <div className={`key large ${jump ? "active" : ""}`}></div>
+        </div>
+        <div className="raw">
+          <div className={`key ${restartKey ? "active" : ""}`}></div>
         </div>
       </div>
     </div>
